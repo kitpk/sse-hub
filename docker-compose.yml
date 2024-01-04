@@ -1,0 +1,21 @@
+version: '3.8'
+networks:
+  lib_dev_net:
+    driver: bridge
+
+services:
+  broker:
+    image: redis:6.2-alpine
+    # command: redis-server --save 20 1 --loglevel warning --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
+    container_name: broker.$DOMAIN
+    restart: always
+    ports:
+      - $REDIS_PORT:6379
+    volumes: 
+      - broker:/data
+    networks:
+      - lib_dev_net
+
+volumes:
+  broker:
+    driver: local
